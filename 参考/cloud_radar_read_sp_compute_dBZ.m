@@ -2,15 +2,15 @@ clc;
 clear all;
 close all;
  
-% fid = fopen('C:\Users\EECJH\Desktop\»úÔØÆøÏóĞÅºÅ´¦Àí\ÔÆÀ×´ïIQ\20161225_000205_P02500_C195841026.YWIQ','r');
-[file, path] = uigetfile({'*.*'}, 'Êı¾İÑ¡Ôñ');     
+% fid = fopen('C:\Users\EECJH\Desktop\æœºè½½æ°”è±¡ä¿¡å·å¤„ç†\äº‘é›·è¾¾IQ\20161225_000205_P02500_C195841026.YWIQ','r');
+[fileï¼Œ path] = uigetfile({'*.*'}, 'æ•°æ®é€‰æ‹©');     
 fname = fullfile(path, file);
 fid = fopen(fname, 'rb');
-% ³¤¶È¶¨Òå
+% é•¿åº¦å®šä¹‰
 
-C=299792457.4;                  %¹âËÙ
-TransmitFrequency=35e9;       %·¢ÉäÆµÂÊ
-WaveLength=C/TransmitFrequency;  %À×´ï¹¤×÷²¨³¤
+C=299792457.4;                  %å…‰é€Ÿ
+TransmitFrequency=35e9;       %å‘å°„é¢‘ç‡
+WaveLength=C/TransmitFrequency;  %é›·è¾¾å·¥ä½œæ³¢é•¿
 DIF_PowerGain=152;%dB
 Receiver_Powergain=45;%dB
 Receiver_Loss =0.6;%dB
@@ -19,9 +19,9 @@ Total_PowerGain=DIF_PowerGain+Receiver_Powergain+Receiver_Loss;% from the DIF to
 % fs=1000;IQ_POWER_NonItg_withnoise
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%¡ª¡ª¡ª¡ª¡ª¡ªcloud radar ¶ÁÈ¡ÎÄ¼şÍ·¡ª¡ª¡ª¡ª¡ª¡ª¡ª%%%%%%%%
+%%%%%%%%â€”â€”â€”â€”â€”â€”cloud radar è¯»å–æ–‡ä»¶å¤´â€”â€”â€”â€”â€”â€”â€”%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ¶ÁÈ¡Í·ÎÄ¼ş¡ª¡ªÊ±¼ä
+% è¯»å–å¤´æ–‡ä»¶â€”â€”æ—¶é—´
 prt_num=0;
 
 M_time_I=2;        %% pulse integration 
@@ -216,13 +216,13 @@ end
 %    figure,plot(xx,STR_spectral(yy),'r',xx,IQ_POWER_NonItg(yy),'b',xx,IQ_powNoInt(yy),'k');  
    figure,
    plot(xx,IQ_powNoInt(yy),'k');xlabel('range(km)');ylabel('signal-to-threshold ratio (dB)'); axis([4 15 -5 50]);grid on;title('no integration');
-   set(gcf, 'position', [450 100 400 350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+   set(gcf, 'position', [450 100 400 350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
    figure,
    plot(xx,IQ_POWER_NonItg(yy),'k');xlabel('range(km)');ylabel('signal-to-threshold ratio(dB)'); axis([4 15 -5 50]);grid on;title('non conherent(power average M=32768)');
-   set(gcf, 'position', [450 100 400  350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+   set(gcf, 'position', [450 100 400  350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
    figure,
    plot(xx,STR_spectral(yy),'k');xlabel('range(km)');ylabel('signal-to-threshold ratio (dB)'); axis([4 15 -5 50]);grid on;title('conherent(Npa=2,Ndft=512 Nsavg=32)');
-   set(gcf, 'position', [450 100 400 350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+   set(gcf, 'position', [450 100 400 350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
   
     %% moment estimation
   IQ_m0= (sum(Spectral_avg));
@@ -259,9 +259,9 @@ for iii=1:length(Wr2)
     end
 end
 
-%ĞÅºÅ´ø¿í:MHz
+%ä¿¡å·å¸¦å®½:MHz
 Radar_B=5;
-%ÔëÉùÏµÊı:dB
+%å™ªå£°ç³»æ•°:dB
 Radar_F=5.5;%5.5dB
 Pn=-114+10*log10(Radar_B)+(Radar_F);
 STR_Thresd=0.25;
@@ -281,11 +281,11 @@ for iii=1:length(IQ_POWER_NonItg)
 end
 figure,
 plot(xx,Pr_Spectal(yy),'k');;xlabel('range(km)');ylabel('radar echo power(dBm)'); axis([4 15 -5 50]);grid on;title('conherent(Npa=2,Ndft=512 Nsavg=32)');
- set(gcf, 'position', [450 100 400 350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+ set(gcf, 'position', [450 100 400 350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
  axis([4 15 -140 -60]); 
 figure,
 plot(xx,Pr_Avgpower(yy),'k');;xlabel('range(km)');ylabel('radar echo power (dBm) '); axis([4 15 -5 50]);grid on;title('non conherent(power average M=32768)');
- set(gcf, 'position', [450 100 400 350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+ set(gcf, 'position', [450 100 400 350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
  axis([4 15 -140 -60]); 
       
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -294,18 +294,18 @@ plot(xx,Pr_Avgpower(yy),'k');;xlabel('range(km)');ylabel('radar echo power (dBm)
  Pt=10;%W
  tao_t=[2,5,20];%us
 WaveWidth=0.4;%degree
-G_dB=52;%ÔöÒæ45.5
+G_dB=52;%å¢ç›Š45.5
 G=10^(G_dB/10);
 Kw=0.813;% for water at 94GHZ
 % R_bin=50*10^3;%50km
 lamga=0.86;%cm
-%ÔëÉùÏµÊı:dB
+%å™ªå£°ç³»æ•°:dB
 Radar_F=5.5;%5.5dBSpectral_avg
-%ĞÅºÅ´ø¿í:MHz
+%ä¿¡å·å¸¦å®½:MHz
 Radar_B=5;
-%ÁéÃô¶È
+%çµæ•åº¦
 
-L_rec=0.6;L_send=0.6;%½ÓÊÕºÍ·¢ÉäËğºÄÎª2dB
+L_rec=0.6;L_send=0.6;%æ¥æ”¶å’Œå‘å°„æŸè€—ä¸º2dB
 tao=tao_t(3);
 C_eq1=pi^5*(10^-17)*Pt*G^2*tao*WaveWidth^2*Kw;
 C_eq2=6.75*2^14*log(2)*lamga^2;
@@ -317,11 +317,11 @@ Ze_NonPowAvg=Pr_Avgpower-10*log10(Radar_C)+L_rec+L_send+20*log10(R_bin);
 
 figure,
 plot(xx,Ze_Spectral(yy),'k');;xlabel('range(km)');ylabel('refelctor factor(dBZ)'); axis([4 15 -5 50]);grid on;title('conherent(Npa=2,Ndft=512 Nsavg=32)');
- set(gcf, 'position', [450 100 400 350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+ set(gcf, 'position', [450 100 400 350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
  axis([4 15 -40 30]);
 figure,
 plot(xx,Ze_NonPowAvg(yy),'k');;xlabel('range(km)');ylabel('refelctor factor(dBZ)'); axis([4 15 -5 50]);grid on;title('non conherent(power average M=32768)');
- set(gcf, 'position', [450 100 400 350 ]);  %[ÆğÊ¼Î»ÖÃ  ¿í¶È]
+ set(gcf, 'position', [450 100 400 350 ]);  %[èµ·å§‹ä½ç½®  å®½åº¦]
  axis([4 15 -40 30]); 
 
    Pr=Pr-Total_PowerGain;
@@ -341,6 +341,7 @@ plot(xx,Ze_NonPowAvg(yy),'k');;xlabel('range(km)');ylabel('refelctor factor(dBZ)
 
 end
 over=1;
+
 
 
 
