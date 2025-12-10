@@ -12,7 +12,7 @@ if ~exist(subdir2, 'dir')    % 检查目录是否存在
     mkdir(subdir2);          % 不存在则创建
 end
 %% 雷达 I/Q 数据读取
-[file, path] = uigetfile({'*.*'}, '数据选择');     
+[file， path] = uigetfile({'*.*'}, '数据选择');     
 fname = fullfile(path, file);
 fid = fopen(fname, 'rb');
 % fid = fopen('C:\Users\EECJH\Desktop\机载气象信号处理\云雷达IQ\20161225_000205_P02500_C195841026.YWIQ','r');
@@ -191,6 +191,7 @@ end
 over=1;
 % h = openfig('figures/VelocitySpec_16384.fig'); % 加载文件
 % set(h, 'Visible', 'on'); % 强制显示
+
 
 
 
