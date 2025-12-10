@@ -7,55 +7,55 @@ f0=1270;
 PRF=f0;
 WaveLength=0.1;
 
-fd=120;%Æ½¾ù¶àÆÕÀÕÆµÒÆ120Hz
+fd=120;%å¹³å‡å¤šæ™®å‹’é¢‘ç§»120Hz
 vel=WaveLength/2*fd
 Vmax=WaveLength/4*PRF
-dv1=1;%Æ×¿í1m/s
-dv2=2;%Æ×¿í2m/s
-dv3=4;%Æ×¿í4m/s
+dv1=1;%è°±å®½1m/s
+dv2=2;%è°±å®½2m/s
+dv3=4;%è°±å®½4m/s
 df1=2/WaveLength*dv1;
 df2=2/WaveLength*dv2;
 df3=2/WaveLength*dv3;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%ÊıÖµÄ£Äâ²úÉúÔëÉùÆ×%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%æ•°å€¼æ¨¡æ‹Ÿäº§ç”Ÿå™ªå£°è°±%%%%%%%%%%%%%%
 NoiseSND=-50;
 df=df2;
 Pn=f0*cc;
 Pr=Pn*10^(NoiseSND/10);
 fi=[-f0/2:10:f0/2];
-Sf=-log(1-randn(1,length(fi))).*(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sÎªÄ£ÄâµÄÀëÉ¢ºóµÄÓĞ°×ÔëÉùµÄ»Ø²¨ĞÅºÅ
-%¶Ô¶àÆÕÀÕÏàÎ»Æ×½øĞĞÄ£Äâ,¼ÙÉèÏàÎ»Æ×Ëæ»ú·Ö²¼ÔÚ(0, 2P) Çø¼ä,¼´: ,¦×£¨f£©=2¦ĞRND
+Sf=-log(1-randn(1,length(fi))).*(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sä¸ºæ¨¡æ‹Ÿçš„ç¦»æ•£åçš„æœ‰ç™½å™ªå£°çš„å›æ³¢ä¿¡å·
+%å¯¹å¤šæ™®å‹’ç›¸ä½è°±è¿›è¡Œæ¨¡æ‹Ÿ,å‡è®¾ç›¸ä½è°±éšæœºåˆ†å¸ƒåœ¨(0, 2P) åŒºé—´,å³: ,Ïˆï¼ˆfï¼‰=2Ï€RND
 rd=2*pi*randn(1,length(fi));
 An=sqrt(Sf).*cos(rd);
 Bn=sqrt(Sf).*sin(rd);
 A=An+Bn*j;
 Pyy=A.*conj(A);
 NoiseSf=Pyy;
-%ÆµÆ×°áÒÆ
+%é¢‘è°±æ¬ç§»
 % NoiseSf(1:length(fi)/2) =  A(length(fi)/2+1:length(fi));
 % NoiseSf(length(fi)/2+1:length(fi)) = A(1:length(fi)/2);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%½áÊø²úÉúÔëÉùÆ×%%%%%%%%%%%%%%%%%%
-figure(1);subplot(211);plot(fi,Pyy);title('Ä£Äâ»Ø²¨.¹¦ÂÊÆ×');subplot(212);plot(fi,10*log10(abs(Sf)));title('Ä£Äâ»Ø²¨.ÀíÏë¹¦ÂÊÆ×');
-%%%%%%%%%%%ÊıÖµÄ£Äâ²úÉú¶ÔÓ¦¶àÆÕÀÕÆ½ÒÆ¡¢Æ×¿íµÄ¸ßË¹Ä£ĞÍÌìÆøĞÅºÅ%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%ç»“æŸäº§ç”Ÿå™ªå£°è°±%%%%%%%%%%%%%%%%%%
+figure(1);subplot(211);plot(fi,Pyy);title('æ¨¡æ‹Ÿå›æ³¢.åŠŸç‡è°±');subplot(212);plot(fi,10*log10(abs(Sf)));title('æ¨¡æ‹Ÿå›æ³¢.ç†æƒ³åŠŸç‡è°±');
+%%%%%%%%%%%æ•°å€¼æ¨¡æ‹Ÿäº§ç”Ÿå¯¹åº”å¤šæ™®å‹’å¹³ç§»ã€è°±å®½çš„é«˜æ–¯æ¨¡å‹å¤©æ°”ä¿¡å·%%%%%
 df=df2;
 Pn=f0*cc;
 Pr=Pn*10^(SND/10);
 
 fi=[-f0/2:10:f0/2];
-Sf1=-log(1-randn(1,length(fi))).*(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sÎªÄ£ÄâµÄÀëÉ¢ºóµÄÓĞ°×ÔëÉùµÄ»Ø²¨ĞÅºÅ
-% Sf1=(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sÎªÄ£ÄâµÄÀëÉ¢ºóµÄÓĞ°×ÔëÉùµÄ»Ø²¨ĞÅºÅ
+Sf1=-log(1-randn(1,length(fi))).*(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sä¸ºæ¨¡æ‹Ÿçš„ç¦»æ•£åçš„æœ‰ç™½å™ªå£°çš„å›æ³¢ä¿¡å·
+% Sf1=(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sä¸ºæ¨¡æ‹Ÿçš„ç¦»æ•£åçš„æœ‰ç™½å™ªå£°çš„å›æ³¢ä¿¡å·
 fd=120;
-Sf2=-log(1-randn(1,length(fi))).*(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sÎªÄ£ÄâµÄÀëÉ¢ºóµÄÓĞ°×ÔëÉùµÄ»Ø²¨ĞÅºÅ
+Sf2=-log(1-randn(1,length(fi))).*(Pr/(sqrt(2*pi)*df).*exp(-(fi-fd).^2./(2*(df.^2)))+cc);%sä¸ºæ¨¡æ‹Ÿçš„ç¦»æ•£åçš„æœ‰ç™½å™ªå£°çš„å›æ³¢ä¿¡å·
 Sf=Sf1;%+Sf2;
-%¶Ô¶àÆÕÀÕÏàÎ»Æ×½øĞĞÄ£Äâ,¼ÙÉèÏàÎ»Æ×Ëæ»ú·Ö²¼ÔÚ(0, 2P) Çø¼ä,¼´: ,¦×£¨f£©=2¦ĞRND
+%å¯¹å¤šæ™®å‹’ç›¸ä½è°±è¿›è¡Œæ¨¡æ‹Ÿ,å‡è®¾ç›¸ä½è°±éšæœºåˆ†å¸ƒåœ¨(0, 2P) åŒºé—´,å³: ,Ïˆï¼ˆfï¼‰=2Ï€RND
 rd=2*pi*randn(1,length(fi));
 An=sqrt(Sf).*cos(rd);
 Bn=sqrt(Sf).*sin(rd);
 A=An+Bn*j;
 Pyy=10*log10(An.^2+Bn.^2);
 % vi =  WaveLength/2*fi;
-figure(1);subplot(211);plot(fi,Pyy);title('Ä£Äâ»Ø²¨.¹¦ÂÊÆ×');subplot(212);plot(fi,10*log10(abs(Sf1)));title('Ä£Äâ»Ø²¨.ÀíÏë¹¦ÂÊÆ×');
+figure(1);subplot(211);plot(fi,Pyy);title('æ¨¡æ‹Ÿå›æ³¢.åŠŸç‡è°±');subplot(212);plot(fi,10*log10(abs(Sf1)));title('æ¨¡æ‹Ÿå›æ³¢.ç†æƒ³åŠŸç‡è°±');
 
-%ÆµÆ×°áÒÆ
+%é¢‘è°±æ¬ç§»
 tempL = A(1:length(fi)/2);
 tempH = A(length(fi)/2+1:length(fi));
 A(1:length(fi)/2) = tempH;
@@ -63,12 +63,12 @@ A(length(fi)/2+1:length(fi)) =tempL;
 
 TimeDomainSeq=ifft(A,length(fi));
 figure(2);
-subplot(2,1,1),plot(real(TimeDomainSeq));title('Ê±Óò.Êµ²¿');
-subplot(2,1,2),plot(imag(TimeDomainSeq));title('Ê±Óò.Ğé²¿');
-%%%%%%%%%%%%%%%%%%%%%%%%½áÊø²úÉú¸ßË¹Ä£ĞÍÌìÆøĞÅºÅ%%%%%%%%%%%%
+subplot(2ï¼Œ1,1),plot(real(TimeDomainSeq));title('æ—¶åŸŸ.å®éƒ¨');
+subplot(2ï¼Œ1,2),plot(imag(TimeDomainSeq));title('æ—¶åŸŸ.è™šéƒ¨');
+%%%%%%%%%%%%%%%%%%%%%%%%ç»“æŸäº§ç”Ÿé«˜æ–¯æ¨¡å‹å¤©æ°”ä¿¡å·%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%% FFT·½·¨ÇóËÙ¶È¡¢Æ×¿í %%%%%%%%%%%%%%%%
-%¼Ó´°
+%%%%%%%%%%%%%%%% FFTæ–¹æ³•æ±‚é€Ÿåº¦ã€è°±å®½ %%%%%%%%%%%%%%%%
+%åŠ çª—
 FFTlen=length(fi);
 IQs=TimeDomainSeq;
 win=hamming(FFTlen);
@@ -78,26 +78,26 @@ Y=fft(IQs,FFTlen);
 n=[1:1:FFTlen];
 fi=(n-FFTlen/2)*(PRF/FFTlen);
 pyy=Y.*conj(Y);
-%%ÆµÆ×°áÒÆ
+%%é¢‘è°±æ¬ç§»
 tempL = pyy(1:length(fi)/2);tempH = pyy(length(fi)/2+1:length(fi));
 pyy(1:length(fi)/2) = tempH;pyy(length(fi)/2+1:length(fi)) =tempL;
 figure(3);plot(fi,10*log10(pyy));
-title('´øÔëÉù¹¦ÂÊÆ×');
-pyy=pyy-NoiseSf;%%%%%%%%%%%%%%%%%%%%%%¸Ä½øµÄFFT·½·¨È¥³ıÔëÉùÆ×
+title('å¸¦å™ªå£°åŠŸç‡è°±');
+pyy=pyy-NoiseSf;%%%%%%%%%%%%%%%%%%%%%%æ”¹è¿›çš„FFTæ–¹æ³•å»é™¤å™ªå£°è°±
 figure(4);plot(fi,10*log10(pyy));
-title('È¥³ıÔëÉùºó¹¦ÂÊÆ×');
+title('å»é™¤å™ªå£°ååŠŸç‡è°±');
 
-%ÇóÆ½¾ù¶àÆÕÀÕËÙ¶È
+%æ±‚å¹³å‡å¤šæ™®å‹’é€Ÿåº¦
 sumsf = sum(pyy.*fi);
 sumf = sum(pyy);
-FFT_fd=sumsf/sumf;                %¶àÆÕÀÕÆµÂÊ
-FFT_vel=FFT_fd*WaveLength/2.0      %¼ÆËã½á¹û£º¶àÆÕÀÕËÙ¶È
-%ÇóÆ×¿í
+FFT_fd=sumsf/sumf;                %å¤šæ™®å‹’é¢‘ç‡
+FFT_vel=FFT_fd*WaveLength/2.0      %è®¡ç®—ç»“æœï¼šå¤šæ™®å‹’é€Ÿåº¦
+%æ±‚è°±å®½
 sumdf = sum( ((fi-FFT_fd).^2) .*pyy);			
-FFT_wid=(sqrt(sumdf/sumf)) *  WaveLength/2.0        %¼ÆËã½á¹û£ºÆ×¿í
-%%%%%%%%%%%%%% FFT·½·¨¼ÆËã½áÊø %%%%%%%%%%%%%%%%%%%
+FFT_wid=(sqrt(sumdf/sumf)) *  WaveLength/2.0        %è®¡ç®—ç»“æœï¼šè°±å®½
+%%%%%%%%%%%%%% FFTæ–¹æ³•è®¡ç®—ç»“æŸ %%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%% Âö³å¶Ô·½·¨ %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% è„‰å†²å¯¹æ–¹æ³• %%%%%%%%%%%%%%%%%
 RT_ImagSum=0;RT_RealSum=0;
 X_T = real(TimeDomainSeq);%X(T)
 Y_T = -imag(TimeDomainSeq);%Y(T)
@@ -144,5 +144,6 @@ else
     else PPP_wid
     end
 end
-%%%%%%%%%%%%%% Âö³å¶Ô·½·¨¼ÆËã½áÊø %%%%%%%%%%
+%%%%%%%%%%%%%% è„‰å†²å¯¹æ–¹æ³•è®¡ç®—ç»“æŸ %%%%%%%%%%
+
 
