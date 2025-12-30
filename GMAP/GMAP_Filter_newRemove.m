@@ -1,7 +1,7 @@
 function H_Filter = GMAP_Filter_newRemove(H,N,prf,wavelength)
-    %% 1¼Ó´°
-    [H_filter] = AddWin(2,H);%¼Óº£Ã÷´°
-    %% 2ÇóÆµÆ×
+    %% 1åŠ çª—
+    [H_filter] = AddWin(2,H);%åŠ æµ·æ˜çª—
+    %% 2æ±‚é¢‘è°±
 %     spec = H_filter.*conj(H_filter);%case2
 %     spec = fftshift(fft(spec));%case2
 %     sample = N;
@@ -10,7 +10,7 @@ function H_Filter = GMAP_Filter_newRemove(H,N,prf,wavelength)
 
     spec_log = 10*log10(spec);
 %     N = N * 2 - 1;
-    %% 3ÇóÔëÉùµçÆ½
+    %% 3æ±‚å™ªå£°ç”µå¹³
     [Max_spec,Max_indx] = max(real(spec_log));
 
     if Max_indx == round(N/2-1) || Max_indx == round(N/2) || Max_indx == round(N/2+1)
@@ -23,32 +23,32 @@ function H_Filter = GMAP_Filter_newRemove(H,N,prf,wavelength)
            end
        end
        Noise_level = mean(temp);
-      %% µÚËÄ²½£¬Ö¸¶¨ÔÓ²¨Æ×¿í£¬¸ù¾İÖ¸¶¨µÄÔÓ²¨Æ×¿í£¬ÒÆ³ıÖĞ¼äµÄ¼¸¸öµã
-       %¹À¼ÆÔ­Ê¼»Ø²¨Æ×µÄÆ½¾ùËÙ¶ÈºÍËÙ¶ÈÆ×¿í
+      %% ç¬¬å››æ­¥ï¼ŒæŒ‡å®šæ‚æ³¢è°±å®½ï¼Œæ ¹æ®æŒ‡å®šçš„æ‚æ³¢è°±å®½ï¼Œç§»é™¤ä¸­é—´çš„å‡ ä¸ªç‚¹
+       %ä¼°è®¡åŸå§‹å›æ³¢è°±çš„å¹³å‡é€Ÿåº¦å’Œé€Ÿåº¦è°±å®½
        [origin_fd, origin_sigma] = CalVdandSigma(spec_log, Noise_level,N,prf);
-       %µØÎïÔÓ²¨²ÎÊıÄâºÏ
+       %åœ°ç‰©æ‚æ³¢å‚æ•°æ‹Ÿåˆ
        sim_sigma = 0.5;
        sim_fd = 0.1;
        sim_power = 1.0;
        sim_sigma = 2*sim_sigma/wavelength;
        sim_fd = 2*sim_fd/wavelength;
-       %ÒÆ³ıÔÓ²¨µã
+       %ç§»é™¤æ‚æ³¢ç‚¹
        [spec_log,clur_point] = RemeClurPois(spec,N,sim_fd,sim_sigma,prf,sim_power,Noise_level,spec_log);
-       %¹ÀËãÈ¥µôÔÓ²¨µÄ»Ø²¨Æ×µÄÆ½¾ùËÙ¶ÈºÍËÙ¶ÈÆ×¿í
+       %ä¼°ç®—å»æ‰æ‚æ³¢çš„å›æ³¢è°±çš„å¹³å‡é€Ÿåº¦å’Œé€Ÿåº¦è°±å®½
        [fd_remov, sigma_remov] = CalVdandSigma(spec_log, Noise_level,N,prf);
        spec_log = spec_log - Noise_level;
-       %ÖØ½¨Æ×£¬ÓÃFFT·½·¨Çó³ö¾ùÖµºÍ·½²î£¬¶ÔĞÅºÅ½øĞĞµÚÒ»´Î¸ßË¹ÄâºÏ
-       %Çó³öÈ¥µôÔÓ²¨ºóµÄ×î´ó¹¦ÂÊÆ×Öµ
+       %é‡å»ºè°±ï¼Œç”¨FFTæ–¹æ³•æ±‚å‡ºå‡å€¼å’Œæ–¹å·®ï¼Œå¯¹ä¿¡å·è¿›è¡Œç¬¬ä¸€æ¬¡é«˜æ–¯æ‹Ÿåˆ
+       %æ±‚å‡ºå»æ‰æ‚æ³¢åçš„æœ€å¤§åŠŸç‡è°±å€¼
        [Max_Spec_log,MaxIndx] = max(spec_log);
-       k = 0:N-1;  %NÎª²ÉÑùµãÊı
+       k = 0:N-1;  %Nä¸ºé‡‡æ ·ç‚¹æ•°
        fi = -prf/2+prf/N.*k;
        Ys = Max_Spec_log .* exp(-(fi-origin_fd).^2 ./ (2*origin_sigma.^2));
-       %% µÚÎå²½£¬Ìæ»»ÔÓ²¨µã
+       %% ç¬¬äº”æ­¥ï¼Œæ›¿æ¢æ‚æ³¢ç‚¹
        spec_log(round(N/2-clur_point/2):round(N/2+clur_point/2)) = Ys(round(N/2-clur_point/2):round(N/2+clur_point/2));
-       %ÖØ¸´ÄâºÏ£¬Ö±µ½Ìæ»»ºó¼ÆËãµÄ¹¦ÂÊ¸Ä±äĞ¡ÓÚ0.2dBÇÒËÙ¶È¸Ä±äĞ¡ÓÚÄÎ¿üË¹ÌØËÙ¶ÈµÄ0.5%
-       count = 0;%ÄâºÏ´ÎÊı
-       Diff_power = 1;%¹¦ÂÊ²î£¬dB
-       Diff_vd = 1;%ËÙ¶È²î£¬m/s
+       %é‡å¤æ‹Ÿåˆï¼Œç›´åˆ°æ›¿æ¢åè®¡ç®—çš„åŠŸç‡æ”¹å˜å°äº0.2dBä¸”é€Ÿåº¦æ”¹å˜å°äºå¥ˆå¥æ–¯ç‰¹é€Ÿåº¦çš„0.5%
+       count = 0;%æ‹Ÿåˆæ¬¡æ•°
+       Diff_power = 1;%åŠŸç‡å·®ï¼ŒdB
+       Diff_vd = 1;%é€Ÿåº¦å·®ï¼Œm/s
        Sum_clurem_old = 0;Sum_clurem_new = 0;fd_old = 0;fd_new = 0;
        while ((Diff_power>0.2) && (Diff_vd > 0.005* prf*wavelength / 4.0))
            Sum_clurem_old = Sum_clurem_new;
@@ -60,31 +60,32 @@ function H_Filter = GMAP_Filter_newRemove(H,N,prf,wavelength)
            Diff_power = abs(Sum_clurem_new - Sum_clurem_old);
            Diff_vd = abs(fd_new - fd_old)*wavelength / 2;
            count = count +1;
-           if count > 100%±ÜÃâÄâºÏ´æÔÚËÀÑ­»·
+           if count > 100%é¿å…æ‹Ÿåˆå­˜åœ¨æ­»å¾ªç¯
                break;
            end
        end
-       %¼ÆËãÂË²¨ºóµÄ×Ü¹¦ÂÊ
+       %è®¡ç®—æ»¤æ³¢åçš„æ€»åŠŸç‡
        spec_log(round(N/2-clur_point/2):round(N/2+clur_point/2)) = spec_log(round(N/2-clur_point/2):round(N/2+clur_point/2)) + Noise_level;
 %        spec_log(round(N/2-clur_point/2):round(N/2+clur_point/2)) = Noise_level;
        spec_log(1:round(N/2-clur_point/2-1)) = 10*log10(spec(1:round(N/2-clur_point/2-1)));
        spec_log(round(N/2+clur_point/2+1):end) = 10*log10(spec(round(N/2+clur_point/2+1):end));
        spec_log = 10.^(spec_log./10);
        
-%        H_Filter = spec_log();%½öÓÃÓÚ¹Û²ìÆµÆ×Êä³ö
+%        H_Filter = spec_log();%ä»…ç”¨äºè§‚å¯Ÿé¢‘è°±è¾“å‡º
        
-       spec_log = ifft(spec_log);%¸µÀïÒ¶Äæ±ä»»£¬±ãÓÚºóÃæPPP¼ÆËã
+       spec_log = ifft(ifftshift(spec_log));%å‚…é‡Œå¶é€†å˜æ¢ï¼Œä¾¿äºåé¢PPPè®¡ç®—
         H_Filter = spec_log();
 
     else
         PPbyp = xcorr(H);
         H_Filter = PPbyp(N:end);
         
-%         H_test = fftshift(fft(H));%½öÓÃÓÚ¹Û²ìÆµÆ×Êä³ö
-%         spec_test = H_test.*conj(H_test);%½öÓÃÓÚ¹Û²ìÆµÆ×Êä³ö
-%         H_Filter = spec_test;%½öÓÃÓÚ¹Û²ìÆµÆ×Êä³ö
+%         H_test = fftshift(fft(H));%ä»…ç”¨äºè§‚å¯Ÿé¢‘è°±è¾“å‡º
+%         spec_test = H_test.*conj(H_test);%ä»…ç”¨äºè§‚å¯Ÿé¢‘è°±è¾“å‡º
+%         H_Filter = spec_test;%ä»…ç”¨äºè§‚å¯Ÿé¢‘è°±è¾“å‡º
     end
 end
+
 
 
 
